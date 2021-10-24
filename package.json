@@ -1,0 +1,27 @@
+{
+  "name": "evolving-protocol",
+  "version": "0.1.0",
+  "description": "evolving stablecoin protocol",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/evolvingcash/evolving-protocol.git"
+  },
+  "keywords": [
+    "evolving",
+    "protocol",
+    "stablecoin",
+    "crypto",
+    "Algorithm",
+    "stablecoin"
+  ],
+  "author": "evolving-protocol",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/evolvingcash/evolving-protocol/issues"
+  },
+  "homepage": "https://github.com/evolvingcash/evolving-protocol#readme"
+}
