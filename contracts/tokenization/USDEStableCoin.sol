@@ -13,6 +13,7 @@ import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 
 import "./USDEStorage.sol";
 import "../interfaces/IUSDEStableCoin.sol";
+import "../libraries/Errors.sol";
 
 /**
  * @title evolving USDE StableCoin ERC20 token
@@ -53,7 +54,7 @@ contract USDEStableCoin is Initializable,
 
     /// @dev auth mintable pool
     modifier onlyPools() {
-       require(hasRole(MINTABLE_POOL_ROLE, msg.sender), "Only frax pools can call this function");
+       require(hasRole(MINTABLE_POOL_ROLE, msg.sender), Errors.NO_AUTH);
         _;
     } 
 }
