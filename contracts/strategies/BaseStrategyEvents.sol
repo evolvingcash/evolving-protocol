@@ -1,14 +1,13 @@
-// SPDX-License-Identifier: GNU GPLv3
+// SPDX-License-Identifier: GPL-3.0-or-later
+pragma solidity ^0.8.4;
 
-pragma solidity ^0.8.7;
+// import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+// import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
-import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+// import "../external/AccessControl.sol";
 
-import "../external/AccessControl.sol";
-
-import "../interfaces/IStrategy.sol";
-import "../interfaces/IPoolManager.sol";
+// import "../interfaces/IStrategy.sol";
+// import "../interfaces/IPoolManager.sol";
 
 /// @title BaseStrategyEvents
 /// @author Angle Core Team

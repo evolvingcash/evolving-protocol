@@ -1,13 +1,12 @@
-// SPDX-License-Identifier: GNU GPLv3
-
-pragma solidity ^0.8.7;
+// SPDX-License-Identifier: GPL-3.0-or-later
+pragma solidity ^0.8.4;
 
 import "./BaseStrategy.sol";
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/utils/Address.sol";
 import { Math } from "@openzeppelin/contracts/utils/math/Math.sol";
-import "@uniswap/v3-core/contracts/interfaces/IUniswapV3Pool.sol";
+// import "@uniswap/v3-core/contracts/interfaces/IUniswapV3Pool.sol";
 
 import "../interfaces/IGenericLender.sol";
 import "../interfaces/IOracle.sol";

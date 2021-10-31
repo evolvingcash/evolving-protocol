@@ -1,9 +1,12 @@
-// SPDX-License-Identifier: GNU GPLv3
+// SPDX-License-Identifier: GPL-3.0-or-later
+pragma solidity ^0.8.4;
 
-pragma solidity ^0.8.7;
-
-import "./BaseStrategyEvents.sol";
+import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
+import "@openzeppelin/contracts/access/AccessControl.sol";
+
+import "../interfaces/IPoolManager.sol";
+import "./BaseStrategyEvents.sol";
 
 /// @title BaseStrategy
 /// @author Forked from https://github.com/yearn/yearn-managers/blob/master/contracts/BaseStrategy.sol
