@@ -31,16 +31,20 @@ contract USDEStableCoin is Initializable,
     using SafeMath for uint256;
     // using EnumerableSet for EnumerableSet.AddressSet;
 
+    /* ========== INITIALIZE ========== */
+
     /// @dev _authorizeUpgrade authorize upgrade role
     function _authorizeUpgrade(address newImplementation) internal view override {
         newImplementation;
-        require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender), "no upgrade auth");
+        require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender), Errors.NO_AUTH);
     }
-    
+
+    /// @dev __USDEStablecoin_init init
     function __USDEStablecoin_init() private {
 
     }
 
+    /// @dev initialize upgradeable USDEStableCoin contract
     function initialize() public payable initializer {
         // "constructor" code...
         __ReentrancyGuard_init();
@@ -52,9 +56,11 @@ contract USDEStableCoin is Initializable,
         __USDEStablecoin_init();
     }
 
+    /* ========== MODIFIERS ========== */
+
     /// @dev auth mintable pool
     modifier onlyPools() {
        require(hasRole(MINTABLE_POOL_ROLE, msg.sender), Errors.NO_AUTH);
         _;
-    } 
+    }
 }
