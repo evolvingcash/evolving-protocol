@@ -2,8 +2,8 @@
 pragma solidity ^0.8.4;
 
 /// @title IOracle
-/// @author Angle Core Team
-/// @notice Interface for Angle's oracle contracts reading oracle rates from both UniswapV3 and Chainlink
+/// @author evolving-protocol Core Team
+/// @notice Interface for evolving-protocol oracle contracts reading oracle rates from both UniswapV3 and Chainlink
 /// from just UniswapV3 or from just Chainlink
 interface IOracle {
     function read() external view returns (uint256);
