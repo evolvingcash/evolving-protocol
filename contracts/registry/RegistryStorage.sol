@@ -11,7 +11,7 @@ contract RegistryStorage {
     /// @notice EVOL uniswap price oracle, in ETH
     IUniswapPairOracle private evolPriceOracle;
     
-    address public usde;
-    address public evol;
-
+    address public usdeToken;
+    address public evolToken;
+    address public treasuryCotroller;
 }
