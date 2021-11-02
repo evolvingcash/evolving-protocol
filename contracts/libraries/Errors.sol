@@ -29,4 +29,6 @@ library Errors {
     string public constant UO_PERIOD_NOT_ELAPSED = '14'; // 
     string public constant UO_PRICE_NEED_UPDATE  = '15'; // price need update
     string public constant UO_INVALID_TOKEN      = '16'; // 
+
+    string public constant US_Collateral_Paused  = '20';
 }

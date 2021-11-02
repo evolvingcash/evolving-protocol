@@ -56,6 +56,8 @@ contract UniswapPairOracle is Ownable {
         timelock = _timelock;
     }
 
+    /* ========== RESTRICTED FUNCTIONS ========== */
+
     function setTimelock(address _timelock) external onlyByOwnGov {
         timelock = _timelock;
     }
@@ -72,13 +74,8 @@ contract UniswapPairOracle is Ownable {
         ALLOW_STALE_CONSULTS = _allow_stale_consults;
     }
 
-    // Check if update() can be called instead of wasting gas calling it
-    function canUpdate() public view returns (bool) {
-        uint32 blockTimestamp = UniswapV2OracleLibrary.currentBlockTimestamp();
-        uint32 timeElapsed = blockTimestamp - blockTimestampLast; // Overflow is desired
-        return (timeElapsed >= PERIOD);
-    }
-
+    /* ========== PUBLIC FUNCTIONS ========== */
+    
     function update() external {
         (uint price0Cumulative, uint price1Cumulative, uint32 blockTimestamp) =
             UniswapV2OracleLibrary.currentCumulativePrices(address(pair));
@@ -97,6 +94,15 @@ contract UniswapPairOracle is Ownable {
         blockTimestampLast = blockTimestamp;
     }
 
+    /* ========== VIEWS ========== */
+
+    // Check if update() can be called instead of wasting gas calling it
+    function canUpdate() public view returns (bool) {
+        uint32 blockTimestamp = UniswapV2OracleLibrary.currentBlockTimestamp();
+        uint32 timeElapsed = blockTimestamp - blockTimestampLast; // Overflow is desired
+        return (timeElapsed >= PERIOD);
+    }
+
     // Note this will always return 0 before update has been called successfully for the first time.
     function consult(address token, uint amountIn) public view returns (uint amountOut) {
         uint32 blockTimestamp = UniswapV2OracleLibrary.currentBlockTimestamp();
@@ -108,7 +114,7 @@ contract UniswapPairOracle is Ownable {
         if (token == token0) {
             amountOut = price0Average.mul(amountIn).decode144();
         } else {
-            require(token == token1, 'UniswapPairOracle: INVALID_TOKEN');
+            require(token == token1, Errors.UO_INVALID_TOKEN);
             amountOut = price1Average.mul(amountIn).decode144();
         }
     }
