@@ -18,7 +18,7 @@ struct StrategyParams {
 }
 
 /// @title IPoolManagerFunctions
-/// @author Angle Core Team
+/// @author evolving-protocol Core Team
 /// @notice Interface for the collateral poolManager contracts handling each one type of collateral for
 /// a given stablecoin
 /// @dev Only the functions used in other contracts of the protocol are left here
@@ -65,7 +65,7 @@ interface IPoolManagerFunctions {
 }
 
 /// @title IPoolManager
-/// @author Angle Core Team
+/// @author evolving-protocol Core Team
 /// @notice Previous interface with additionnal getters for public variables and mappings
 /// @dev Used in other contracts of the protocol
 interface IPoolManager is IPoolManagerFunctions {

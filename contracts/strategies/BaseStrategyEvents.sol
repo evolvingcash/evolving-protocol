@@ -10,7 +10,7 @@ pragma solidity ^0.8.4;
 // import "../interfaces/IPoolManager.sol";
 
 /// @title BaseStrategyEvents
-/// @author Angle Core Team
+/// @author evolving-protocol Core Team
 /// @notice Events used in the abstract `BaseStrategy` contract
 contract BaseStrategyEvents {
     // So indexers can keep track of this

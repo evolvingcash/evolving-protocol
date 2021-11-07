@@ -37,12 +37,10 @@ contract UniswapPairOracle is Ownable {
     }
 
     constructor (
-        address factory, 
-        address tokenA, 
-        address tokenB, 
+        address _pairAddr,
         address _timelock
     ) {
-        IUniswapV2Pair _pair = IUniswapV2Pair(UniswapV2Library.pairFor(factory, tokenA, tokenB));
+        IUniswapV2Pair _pair = IUniswapV2Pair(_pairAddr);
         token0 = _pair.token0();
         token1 = _pair.token1();
         price0CumulativeLast = _pair.price0CumulativeLast(); // Fetch the current accumulated price value (1 / 0)

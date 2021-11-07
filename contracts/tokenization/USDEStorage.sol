@@ -2,7 +2,7 @@
 pragma solidity ^0.8.4;
 
 import "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
-import "../interfaces/IUniswapPairOracle.sol";
+import "../interfaces/IRegistry.sol";
 
 contract USDEStorage {
     /// @notice mintable pools
@@ -11,14 +11,11 @@ contract USDEStorage {
     bytes32 public constant OWNER_OR_GOVERN_ROLE = keccak256("OWNER_OR_GOVERN_ROLE");
 
     /// @notice 2M (only for testing, genesis supply will be 5k on Mainnet). This is to help with establishing the Uniswap pools, as they need liquidity
-    uint256 public constant genesisSupply = 2000000e18;
+    uint256 public genesisSupply;
 
-    /// @notice USDE uniswap price oracle, in ETH
-    IUniswapPairOracle private usdePrice;
+    /// @notice registry address
+    IRegistry public registry;
 
-    /// @notice EVOL uniswap price oracle, in ETH
-    IUniswapPairOracle private evolPrice;
-    
     /// @notice Last time the refreshCollateralRatio function was called
     uint256 public lastRefreshTime;
     /// @notice collateral ratio

@@ -12,7 +12,7 @@ import "../interfaces/IGenericLender.sol";
 import "../interfaces/IOracle.sol";
 
 /// @title StrategyEvents
-/// @author Angle Core Team
+/// @author evolving-protocol Core Team
 /// @notice Events used in `Strategy` contracts
 contract StrategyEvents {
     event AddLender(address indexed lender);

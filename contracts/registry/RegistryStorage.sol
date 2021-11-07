@@ -2,19 +2,25 @@
 pragma solidity ^0.8.4;
 
 import "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
-import "../interfaces/IUniswapPairOracle.sol";
-import "../interfaces/IAggregatorV3.sol";
+import "../interfaces/IUniswapV2PairOracle.sol";
+import "../interfaces/AggregatorV3Interface.sol";
 
 contract RegistryStorage {
     /// @notice USDE uniswap price oracle, in ETH
-    IUniswapPairOracle private usdePriceOracle;
+    IUniswapV2PairOracle internal _usdePairOracle;
 
     /// @notice EVOL uniswap price oracle, in ETH
-    IUniswapPairOracle private evolPriceOracle;
+    IUniswapV2PairOracle internal _evolPairOracle;
 
-    IAggregatorV3 public ethOracle;
-    
-    address public usdeToken;
-    address public evolToken;
-    address public treasuryCotroller;
+    /// @notice the ETH/USD oracle
+    AggregatorV3Interface internal _ethOracle;
+
+    /// @notice chainlink oracle map, such as USDT, USDC oracles, etc
+    mapping(address => AggregatorV3Interface) internal _chainlinkOracles;
+
+    address public weth;
+
+    address internal _usdeToken;
+    address internal _evolToken;
+    address internal _treasury;
 }

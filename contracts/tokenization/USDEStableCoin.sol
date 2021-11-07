@@ -14,6 +14,7 @@ import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "./USDEStorage.sol";
 import "../interfaces/IUSDEStableCoin.sol";
 import "../libraries/Errors.sol";
+import "../libraries/PriceLogic.sol";
 
 /**
  * @title evolving USDE StableCoin ERC20 token
@@ -40,7 +41,9 @@ contract USDEStableCoin is Initializable,
     }
 
     /// @dev __USDEStablecoin_init init
-    function __USDEStablecoin_init() private {
+    function __USDEStablecoin_init(address _reg) private {
+        registry = IRegistry(_reg);
+
         ratioStep = 2500; // 6 decimals of precision, equal to 0.25%
         collateralRatio = 1000000; // system starts off fully collateralized (6 decimals of precision)
         refreshCooldown = 3600; // Refresh cooldown period is set to 1 hour (3600 seconds) at genesis
@@ -49,10 +52,21 @@ contract USDEStableCoin is Initializable,
 
         stage1Supply = 3000000e18;  // 3M, when reach this supply, we allow mint USDE by ETH BTC etc
         stage2Supply = 10000000e18; // 10M, when reach this supply, we allow mint USDE by EVOL
+
+        genesisSupply = stage1Supply / 10;
+        address genesisOwner = msg.sender;
+        if (_reg != address(0)) {
+            address treasury = IRegistry(_reg).getTreasury();
+            if (treasury != address(0)) {
+                genesisOwner = treasury;
+            }
+        }
+        // 初始化分配
+        _mint(genesisOwner, genesisSupply);
     }
 
     /// @dev initialize upgradeable USDEStableCoin contract
-    function initialize() public payable initializer {
+    function initialize(address _reg) public payable initializer {
         // "constructor" code...
         __ReentrancyGuard_init();
         __AccessControlEnumerable_init();
@@ -60,7 +74,7 @@ contract USDEStableCoin is Initializable,
         __EIP712_init("evolving.cash", "0x01");
         __UUPSUpgradeable_init();
 
-        __USDEStablecoin_init();
+        __USDEStablecoin_init(_reg);
     }
 
     /* ========== MODIFIERS ========== */
@@ -87,11 +101,15 @@ contract USDEStableCoin is Initializable,
     }
 
     function _refreshCollateralRatio() private {
+        if (totalSupply() <= stage2Supply) {
+            // 100% collateral of stable coin; no need to refresh
+            return;
+        }
         if (block.timestamp < lastRefreshTime + refreshCooldown) {
             return;
         }
 
-        uint256 usdePrice = frax_price();
+        uint256 usdePrice = PriceLogic.getPriceInUSDByETH(PriceLogic.PriceToken.USDE, registry);
         // Step increments are 0.25% (upon genesis, changable by setRatioStep()) 
         if (usdePrice > priceAnchor.add(priceBand)) { //decrease collateral ratio
             if(collateralRatio <= ratioStep){ //if within a step of 0, go to 0
@@ -137,6 +155,8 @@ contract USDEStableCoin is Initializable,
     /// @dev setCollateralRatio set collateralRatio
     /// @param ratio new collateralRatio
     function setCollateralRatio(uint256 ratio) external onlyOwnerOrGovernor {
+        require (totalSupply() > stage2Supply, Errors.US_NOT_REACH_STAGE2);
+
         collateralRatio = ratio;
 
         emit CollateralRatioSet(ratio);
@@ -151,7 +171,7 @@ contract USDEStableCoin is Initializable,
     }
 
     /// @dev setRefreshCooldown set refreshCooldown
-    /// @param seconds new refreshCooldown seconds
+    /// @param _seconds new refreshCooldown seconds
     function setRefreshCooldown(uint256 _seconds) external onlyOwnerOrGovernor {
         refreshCooldown = _seconds;
 

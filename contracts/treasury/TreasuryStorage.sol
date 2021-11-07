@@ -2,7 +2,7 @@
 pragma solidity ^0.8.4;
 
 import "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
-import "../interfaces/IUniswapPairOracle.sol";
+import "../interfaces/IUniswapV2PairOracle.sol";
 
-contract TreasuryStorage {
+contract TreasuryStorageV1 {
 }

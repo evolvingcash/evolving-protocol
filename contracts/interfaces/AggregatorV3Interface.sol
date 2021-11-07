@@ -1,10 +1,13 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.4;
+// code from chainlink:
+//   https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol
+pragma solidity ^0.8.0;
 
-interface IAggregatorV3 {
-
+interface AggregatorV3Interface {
   function decimals() external view returns (uint8);
+
   function description() external view returns (string memory);
+
   function version() external view returns (uint256);
 
   // getRoundData and latestRoundData should both raise "No data present"
@@ -31,5 +34,4 @@ interface IAggregatorV3 {
       uint256 updatedAt,
       uint80 answeredInRound
     );
-
 }

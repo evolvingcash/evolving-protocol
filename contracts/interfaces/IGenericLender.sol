@@ -5,7 +5,7 @@ pragma solidity ^0.8.4;
 import "@openzeppelin/contracts/access/IAccessControl.sol";
 
 /// @title IGenericLender
-/// @author Yearn with slight modifications from Angle Core Team
+/// @author Yearn with slight modifications from evolving-protocol Core Team
 /// @dev Interface for the `GenericLender` contract, the base interface for contracts interacting
 /// with lending and yield farming platforms
 interface IGenericLender is IAccessControl {

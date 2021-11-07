@@ -1,13 +1,13 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 pragma solidity ^0.8.4;
 
-import "../interfaces/IAggregatorV3.sol";
+import "../interfaces/AggregatorV3Interface.sol";
 
 contract ChainlinkETHUSDOracle {
-    IAggregatorV3 internal priceFeed;
+    AggregatorV3Interface internal priceFeed;
 
 
-    constructor (address addr) public {
+    constructor (address addr) {
         /// 0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419
         priceFeed = AggregatorV3Interface(addr);
     }

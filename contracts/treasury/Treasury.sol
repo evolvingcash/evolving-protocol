@@ -19,12 +19,12 @@ import "../libraries/Errors.sol";
  * @dev Treasury
  * @author evolving-protocol
  */
-contract TreasuryController is Initializable,
+contract Treasury is Initializable,
                     OwnableUpgradeable,
                     UUPSUpgradeable,
                     ReentrancyGuardUpgradeable,
                     EIP712Upgradeable,
-                    IRegistry,
+                    ITreasury,
                     TreasuryStorageV1 {
     using SafeMath for uint256;
     // using EnumerableSet for EnumerableSet.AddressSet;

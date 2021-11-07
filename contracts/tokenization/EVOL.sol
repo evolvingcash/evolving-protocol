@@ -64,33 +64,4 @@ contract EVOL is Initializable,
         _;
     }
 
-    // This is needed to avoid costly repeat calls to different getter functions
-    // It is cheaper gas-wise to just dump everything and only use some of the info
-    function frax_info() public view returns (uint256, uint256, uint256, uint256, uint256, uint256, uint256) {
-        return (
-            oracle_price(PriceChoice.FRAX), // frax_price()
-            oracle_price(PriceChoice.FXS),  // fxs_price()
-            totalSupply(), // totalSupply()
-            global_collateral_ratio, // global_collateral_ratio()
-            globalCollateralValue(), // globalCollateralValue
-            minting_fee, // minting_fee()
-            uint256(eth_usd_pricer.getLatestPrice()).mul(PRICE_PRECISION).div(uint256(10) ** eth_usd_pricer_decimals) //eth_usd_price
-        );
-    }
-
-    /// @notice poolMint mint USDE
-    /// @param to account to recv USDE token
-    /// @param amount amount
-    function poolMint(address to, uint256 amount) public onlyPools {
-        super._mint(to, amount);
-
-        emit USDEMinted(msg.sender, to, amount);
-    }
-
-    /// @dev burn this can only burn msg.sender's token, so it's ok
-    /// @param amount amount to burn
-    function burn(uint256 amount) public {
-        super._burn(msg.sender, amount);
-        emit USDEBurned(msg.sender, amount);
-    }
 }

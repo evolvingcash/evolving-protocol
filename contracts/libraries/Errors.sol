@@ -31,4 +31,6 @@ library Errors {
     string public constant UO_INVALID_TOKEN      = '16'; // 
 
     string public constant US_Collateral_Paused  = '20';
+    string public constant US_NOT_REACH_STAGE1   = '21';
+    string public constant US_NOT_REACH_STAGE2   = '22';
 }
